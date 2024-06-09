@@ -29,8 +29,6 @@ test_docker_image:
     - docker stop python-flask && docker rm python-flask
 
 deploy_eks:
-  only:
-    - main
   stage: deploy
   tags:
     - aws
