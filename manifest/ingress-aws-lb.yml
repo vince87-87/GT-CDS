@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cds-web-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: cds-cluster-ingress
+    alb.ingress.kubernetes.io/load-balancer-name: cds-cluster-ingress
+    #alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    #alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:533266986781:certificate/56958002-117c-4916-b72b-29d97876e0ce
+spec:
+  rules:
+  - host: cds-cluster-ingress-30947139.ap-southeast-1.elb.amazonaws.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cds-web-service
+            port:
+              number: 80
+  ingressClassName: alb

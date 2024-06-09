@@ -1,0 +1,39 @@
+stages:
+  - build
+  - test
+  - deploy
+
+before_script:
+  - aws ecr get-login-password --region $REGION | docker login --username $AWS_ECR_USER --password-stdin $AWS_ECR_REPO
+  - aws eks --region $REGION update-kubeconfig --name $EKS_CLUSTER
+
+build_docker_image:
+  stage: build
+  tags:
+    - aws
+  script:
+    - echo "build stages"
+    - docker build -t pythonapp-redis .
+    - docker tag pythonapp-redis:latest $AWS_ECR_REPO:latest
+    - docker push $AWS_ECR_REPO:latest
+
+test_docker_image:
+  stage: test
+  tags:
+    - aws
+  script:
+    - echo "test stage"
+    - docker run -d --name python-flask -p 5001:5001 -e REDIS_HOST=$REDIS $AWS_ECR_REPO:latest 
+    - sleep 5
+    - curl -vf http://localhost:5001 || (echo "Curl failed" && exit 1)
+    - docker stop python-flask && docker rm python-flask
+
+deploy_eks:
+  only:
+    - main
+  stage: deploy
+  tags:
+    - aws
+  script:
+    - kubectl apply -f manifest/.
+    - kubectl autoscale deployment cds-web --cpu-percent=50 --min=1 --max=10

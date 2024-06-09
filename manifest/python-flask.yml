@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: cds-web
+  name: cds-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cds-web
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: cds-web
+    spec:
+      containers:
+      - image: 533266986781.dkr.ecr.ap-southeast-1.amazonaws.com/pythonapp-redis:latest
+        name: cds-web
+        ports:
+        - containerPort: 5001
+        env:
+        - name: REDIS_HOST
+          value: "r1.hha0vx.ng.0001.apse1.cache.amazonaws.com"
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cds-web-service
+spec:
+  selector:
+    app: cds-web
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5001
+  type: ClusterIP
