@@ -2,12 +2,6 @@
 terraform {
   required_version = ">= 1.0"
   backend "s3" {
-    # bucket         = "cds-app-terraform-state"
-    # key            = "iac/dev/terraform.tfstate"
-    # region         = "ap-southeast-1"
-    # encrypt        = true
-    # dynamodb_table = "terraform-state"
-    # profile        = "twn" # based on ~/.aws/credentials
   }
   required_providers {
     aws = {

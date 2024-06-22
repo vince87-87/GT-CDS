@@ -49,6 +49,8 @@ module "gitlab_instance" {
 
   context = module.this.context
 
+  depends_on = [aws_iam_instance_profile.gitlab_profile]
+
   tags = {
     Name = "${local.env}-cds-gitlab"
   }

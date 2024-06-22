@@ -8,11 +8,11 @@ module "eks_cluster" {
   kubernetes_version        = "1.29"
   enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
   oidc_provider_enabled     = true
-  map_additional_iam_roles  = [
+  map_additional_iam_roles = [
     {
-        rolearn  = "${aws_iam_role.gitlab_role.arn}"
-        username = "system:node:{{EC2PrivateDNSName}}"
-        groups   = ["system:bootstrappers", "system:nodes"]
+      rolearn  = "${aws_iam_role.gitlab_role.arn}"
+      username = "system:node:{{EC2PrivateDNSName}}"
+      groups   = ["system:bootstrappers", "system:nodes"]
     }
   ]
 

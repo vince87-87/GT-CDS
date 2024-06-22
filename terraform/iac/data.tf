@@ -5,10 +5,7 @@ locals {
     "ecr_access_policy" = data.aws_iam_policy_document.ecr_policy.json
   }
 
-  iam_attachment = {
-    "${aws_iam_policy.access_policy["eks_access_policy"].arn}" = aws_iam_role.gitlab_role.name,
-    "${aws_iam_policy.access_policy["ecr_access_policy"].arn}" = aws_iam_role.gitlab_role.name
-  }
+  iam_attachment = ["${aws_iam_policy.access_policy["eks_access_policy"].arn}", "${aws_iam_policy.access_policy["ecr_access_policy"].arn}"]
 
   allow_ssh_ingress_rule = {
     key         = "ssh"

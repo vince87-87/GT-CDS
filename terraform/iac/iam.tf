@@ -57,9 +57,9 @@ resource "aws_iam_policy" "access_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "access_policy_attachment" {
-  for_each   = local.iam_attachment
-  policy_arn = each.key
-  role       = each.value
+  count      = 2
+  policy_arn = local.iam_attachment[count.index]
+  role       = aws_iam_role.gitlab_role.name
 }
 
 

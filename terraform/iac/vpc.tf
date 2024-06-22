@@ -9,6 +9,6 @@ module "vpc" {
   assign_generated_ipv6_cidr_block = false
 
   tags = {
-    Name        = "cds-vpc"
+    Name = "cds-vpc"
   }
 }
