@@ -16,13 +16,13 @@ module "web_app-subnets" {
     }
   ]
   public_subnets_additional_tags = {
-    "kubernetes.io/cluster/cds-cluster" = "owned"
-    "kubernetes.io/role/elb"            = "1"
+    "kubernetes.io/cluster/${local.env}-cds-cluster" = "owned"
+    "kubernetes.io/role/elb"                         = "1"
   }
 
   private_subnets_additional_tags = {
-    "kubernetes.io/cluster/cds-cluster" = "owned"
-    "kubernetes.io/role/internal-elb"   = "1"
+    "kubernetes.io/cluster/${local.env}-cds-cluster" = "owned"
+    "kubernetes.io/role/internal-elb"                = "1"
   }
 }
 

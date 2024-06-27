@@ -1,14 +1,3 @@
-module "label" {
-  source  = "cloudposse/label/null"
-  version = "0.25.0"
-
-  attributes = ["cluster"]
-
-  context = module.this.context
-  tags = {
-    Environment = "${local.env}"
-  }
-}
 
 module "sg_gitlab_runner" {
   source  = "cloudposse/security-group/aws"

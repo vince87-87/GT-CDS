@@ -11,3 +11,6 @@ terraform init \
   -backend-config="profile=twn"
 
   ```
+
+  route53
+  acm

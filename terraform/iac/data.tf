@@ -13,8 +13,8 @@ locals {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    description = "Allow trusted ip to access bastion host"
-    cidr_blocks = ["42.60.165.129/32"]
+    description = "Allow trusted ip to access gitlab runner"
+    cidr_blocks = ["195.133.129.156/32"]
   }
 
   allow_http_ingress_rule = {
