@@ -38,17 +38,3 @@ module "eks-node-group" {
   module_depends_on = [module.eks_cluster.kubernetes_config_map_id]
 }
 
-module "eks_fargate_profile" {
-  source = "cloudposse/eks-fargate-profile/aws"
-  version = "1.3.0"
-
-  subnet_ids                              = module.web_app-subnets.private_subnet_ids
-  cluster_name                            = module.eks_cluster.eks_cluster_id
-  kubernetes_namespace                    = "${local.env}"
-  # kubernetes_labels                       = var.kubernetes_labels
-  # iam_role_kubernetes_namespace_delimiter = var.iam_role_kubernetes_namespace_delimiter
-  # fargate_profile_name                    = var.fargate_profile_name
-  # fargate_profile_iam_role_name           = var.fargate_profile_iam_role_name
-
-  context = module.this.context
-}

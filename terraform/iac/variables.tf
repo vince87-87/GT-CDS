@@ -40,7 +40,3 @@ variable "key" {
   type    = string
   default = "iac/dev/terraform.tfstate"
 }
-
-variable "instance_type" {
-  type = string
-}
