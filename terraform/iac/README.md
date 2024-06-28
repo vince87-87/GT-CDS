@@ -1,6 +1,6 @@
 ```
 
-export ENV="dev"
+export ENV="uat"
 
 terraform init \
   -backend-config="bucket=cds-app-terraform-state" \
